@@ -1,5 +1,6 @@
 package io.anele.intergalactic.config;
 
+import io.anele.intergalactic.model.GalacticSymbol;
 import io.anele.intergalactic.model.RomanSymbol;
 import io.anele.intergalactic.model.RomanSymbol.RomanSymbolBuilder;
 import java.util.ArrayList;
@@ -12,12 +13,22 @@ import java.util.List;
 public class ConfigProperties {
 
   private final List<RomanSymbol> romanSymbols = new ArrayList<>(7);
+  private final List<GalacticSymbol> galacticSymbols = new ArrayList<>(4);
 
   public ConfigProperties() {
+    initializeData();
   }
 
-  public void initializeData(){
+  private void initializeData(){
     initRomanSymbols();
+    initIntergalacticUnits();
+  }
+
+  private void initIntergalacticUnits() {
+    this.galacticSymbols.add(new GalacticSymbol("glob", search('I')));
+    this.galacticSymbols.add(new GalacticSymbol("prok", search('V')));
+    this.galacticSymbols.add(new GalacticSymbol("pish", search('X')));
+    this.galacticSymbols.add(new GalacticSymbol("tegj", search('L')));
   }
 
   private void initRomanSymbols() {
@@ -50,5 +61,14 @@ public class ConfigProperties {
 
   public List<RomanSymbol> getRomanSymbols() {
     return romanSymbols;
+  }
+
+  public List<GalacticSymbol> getGalacticSymbols() {
+    return galacticSymbols;
+  }
+
+  public RomanSymbol search(final char romanSymbol) {
+    return this.romanSymbols.stream().filter(roman -> roman.getId() == romanSymbol)
+        .findFirst().orElseThrow(RuntimeException::new);
   }
 }

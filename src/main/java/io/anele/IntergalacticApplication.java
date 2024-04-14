@@ -21,7 +21,6 @@ public class IntergalacticApplication {
 
   static void loadSymbols() {
     configProperties = new ConfigProperties();
-    configProperties.initializeData();
   }
 
   static void print() {

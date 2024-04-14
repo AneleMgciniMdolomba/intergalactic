@@ -19,7 +19,6 @@ class IntergalacticSymbolsTest {
   @BeforeAll
   static void setUp() {
     configProperties = new ConfigProperties();
-    configProperties.initializeData();
   }
 
   @ParameterizedTest(name = "[{index}] - Test valid Roman Symbols")
@@ -87,11 +86,5 @@ class IntergalacticSymbolsTest {
         .stream().filter(unit -> unit.getId().equals("wood")).findFirst();
 
     assertFalse(invalidSymbol.isPresent(), "'wood' is not valid intergalactic symbol. Check Config");
-  }
-
-  @ParameterizedTest(name = "[{index}] - Roman to Arabic")
-  @CsvSource(value = {"MMVI;2006", "MCMXLIV;1944", "XXXIX;39"}, delimiter = ';')
-  void testRomanSymbolsConversionRules(String roman, int arabic) {
-
   }
 }
