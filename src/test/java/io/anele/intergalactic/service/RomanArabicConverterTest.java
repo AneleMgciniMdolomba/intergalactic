@@ -17,11 +17,11 @@ class RomanArabicConverterTest {
   }
 
   @ParameterizedTest(name = "[{index}] - Roman to Arabic")
-  @CsvSource(value = {"MMVI;2006", "MCMXLIV;1944", "XXXIX;39"}, delimiter = ';')
+  @CsvSource(value = {"MMVI;2006", "MCMXLIV;1944", "XXXIX;39",
+      "M;1000", "IX;9", "MCI;1101"}, delimiter = ';')
   void testRomanSymbolsConversionRules(String roman, int arabic) {
     var arabicValue = converter.convert(roman);
 
-    System.out.println(arabicValue);
     assertEquals(arabic, arabicValue.getValue());
   }
 }
