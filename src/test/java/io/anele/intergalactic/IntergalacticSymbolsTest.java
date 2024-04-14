@@ -69,9 +69,29 @@ class IntergalacticSymbolsTest {
     filteredSymbols.forEach(each -> assertEquals(0, each.getMaxSequentialAllowed()));
   }
 
-  @ParameterizedTest(name = "[index] - GalacticSymbolToRoman")
+  @ParameterizedTest(name = "[{index}] - Roman Symbol to Intergalactic Unit")
   @CsvSource(value = {"glob;I", "prok;V", "pish;X", "tegj;L"}, delimiter = ';')
-  void testGalacticSymbolToRomanSymbol(String galacticSymbol, String romanSymbol) {
+  void testRomanToIntergalacticSymbols(String intergalactic, char roman) {
+    var galacticSymbol = configProperties.getGalacticSymbols();
+
+    assertNotNull(galacticSymbol, "Failed to load data from config");
+
+    var symbol = galacticSymbol.stream().filter(unit -> intergalactic.equals(unit.getId())).findFirst();
+    assertTrue(symbol.isPresent(), "Invalid Intergalactic Symbol");
+    assertEquals(symbol.get().getRomanSymbol().getId(), roman);
+  }
+
+  @Test
+  void testInvalidIntergalacticUnit() {
+    var invalidSymbol = configProperties.getGalacticSymbols()
+        .stream().filter(unit -> unit.getId().equals("wood")).findFirst();
+
+    assertFalse(invalidSymbol.isPresent(), "'wood' is not valid intergalactic symbol. Check Config");
+  }
+
+  @ParameterizedTest(name = "[{index}] - Roman to Arabic")
+  @CsvSource(value = {"MMVI;2006", "MCMXLIV;1944", "XXXIX;39"}, delimiter = ';')
+  void testRomanSymbolsConversionRules(String roman, int arabic) {
 
   }
 }
