@@ -36,17 +36,20 @@ class RomanArabicConverterTest {
     // D, L & V can never repeat
 
     InvalidRomanSymbolsException invalidRomanSymbolsException = assertThrows(
-        InvalidRomanSymbolsException.class, () -> {
-          converter.convert(roman);
-
-        });
+        InvalidRomanSymbolsException.class, () -> converter.convert(roman));
 
     assertNotNull(invalidRomanSymbolsException, "Validation failed.");
   }
 
   @ParameterizedTest(name = "[{index}] - Testing {arguments}")
-  @ValueSource(strings = {"XXXXIX", ""})
+  @ValueSource(strings = {"XXXXIX", "XIIIIX", "XCCCC", "MMMM"})
   void testingMaxAllowedRepeats(String roman) {
-    // TODO
+    // 'I', 'X', 'C', 'M' can be repeated up to 3 consecutively
+    InvalidRomanSymbolsException invalidRomanSymbolsException = assertThrows(
+        InvalidRomanSymbolsException.class, () -> converter.convert(roman)
+    );
+
+    assertNotNull(invalidRomanSymbolsException);
+    assertEquals("Max Sequential Allowed exceeded.", invalidRomanSymbolsException.getMessage());
   }
 }

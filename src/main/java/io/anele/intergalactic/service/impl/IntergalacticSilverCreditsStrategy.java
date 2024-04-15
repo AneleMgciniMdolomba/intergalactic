@@ -9,8 +9,9 @@ import java.util.List;
 
 public class IntergalacticSilverCreditsStrategy implements IntergalacticTrader {
 
-  // Calculated from requirements / examples
-  private final ArabicSymbol baseSilverArabicSymbol = new ArabicSymbol(32);
+  // Calculated from requirements / examples - refer to notes on
+  // how to calculate unit cost per commodity
+  private final ArabicSymbol costPerUnit = new ArabicSymbol(17);
   private final RomanArabicConverter converter;
 
   public IntergalacticSilverCreditsStrategy(RomanArabicConverter converter) {
@@ -21,7 +22,7 @@ public class IntergalacticSilverCreditsStrategy implements IntergalacticTrader {
   public ArabicSymbol trade(List<RomanSymbol> symbol)
       throws InvalidIntergalacticTradingPromptException {
 
-    return convertUnitsAndGet(symbol, baseSilverArabicSymbol, converter);
+    return convertUnitsAndGet(symbol, costPerUnit, converter);
   }
 
 }

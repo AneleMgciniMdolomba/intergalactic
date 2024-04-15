@@ -22,7 +22,7 @@ public interface IntergalacticTrader {
 
     final var input = builder.toString();
     ArabicSymbol credits = new ArabicSymbol(baseIronArabicSymbol.getValue());
-    credits.addValue(converter.convert(input).getValue());
+    credits.calculateCredits(converter.convert(input).getValue());
 
     return credits;
   }

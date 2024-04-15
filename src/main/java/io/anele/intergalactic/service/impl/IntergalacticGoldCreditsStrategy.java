@@ -9,8 +9,9 @@ import java.util.List;
 
 public class IntergalacticGoldCreditsStrategy implements IntergalacticTrader {
 
-  // Calculated from requirements / examples
-  private final ArabicSymbol baseGoldArabicSymbol = new ArabicSymbol(57796);
+  // Calculated from requirements / examples - refer to notes on
+  // how to calculate unit cost per commodity
+  private final ArabicSymbol baseGoldArabicSymbol = new ArabicSymbol(14450);
   private final RomanArabicConverter converter;
 
   public IntergalacticGoldCreditsStrategy(RomanArabicConverter converter) {

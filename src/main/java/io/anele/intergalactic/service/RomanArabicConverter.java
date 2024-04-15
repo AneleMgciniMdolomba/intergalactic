@@ -1,13 +1,14 @@
 package io.anele.intergalactic.service;
 
+import static io.anele.intergalactic.validations.InputValidator.validateAllowedMaxRepeats;
+import static io.anele.intergalactic.validations.InputValidator.validateNonAllowedRepeat;
+
 import io.anele.intergalactic.config.ConfigProperties;
 import io.anele.intergalactic.exceptions.InvalidRomanSymbolsException;
 import io.anele.intergalactic.model.ArabicSymbol;
 import io.anele.intergalactic.model.RomanSymbol;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class RomanArabicConverter {
 
@@ -21,44 +22,12 @@ public class RomanArabicConverter {
     var romanSymbols = roman.toCharArray();
 
     List<RomanSymbol> input = asRomanSymbols(romanSymbols); // throw runtime exception
-    validateInput(input);
+    validateNonAllowedRepeat(input);
+    validateAllowedMaxRepeats(input);
 
     return toArabic(input);
   }
 
-  private void validateInput(List<RomanSymbol> input) throws InvalidRomanSymbolsException {
-    Map<Character, Integer> repeats = new HashMap<>();
-    int countForL = 0, countForD = 0, countForV = 0;
-
-    if (input == null || input.isEmpty()) {
-      throw new InvalidRomanSymbolsException("Cannot convert empty roman numerals");
-    }
-
-    // D, L & V can never be repeated
-    for (RomanSymbol current : input) {
-      if ('D' == current.getId()) {
-        countForD += 1;
-        repeats.put('D', countForD);
-      }
-
-      if ('L' == current.getId()) {
-        countForL += 1;
-        repeats.put('L', countForL);
-      }
-
-      if ('V' == current.getId()) {
-        countForV += 1;
-        repeats.put('V', countForV);
-      }
-    }
-
-    if ((repeats.get('D') != null && repeats.get('D') > 1) ||
-        (repeats.get('V') != null && repeats.get('V') > 1) ||
-        (repeats.get('L') != null && repeats.get('L') > 1)) {
-      throw new InvalidRomanSymbolsException("D,L or V can never repeat");
-    }
-
-  }
 
   private ArabicSymbol toArabic(List<RomanSymbol> romanSymbols) {
     int value = 0;

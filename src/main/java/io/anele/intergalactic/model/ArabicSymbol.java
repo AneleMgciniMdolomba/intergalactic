@@ -2,21 +2,21 @@ package io.anele.intergalactic.model;
 
 public class ArabicSymbol {
 
-  private int value;
+  private double value;
 
   public ArabicSymbol() {
   }
 
-  public ArabicSymbol(int value) {
+  public ArabicSymbol(double value) {
     this.value = value;
   }
 
-  public int getValue() {
+  public double getValue() {
     return value;
   }
 
-  public void addValue(int value) {
-    this.value += value;
+  public void calculateCredits(double costPerUnit) {
+    this.value = value * costPerUnit;
   }
   public void setValue(int value) {
     this.value = value;
