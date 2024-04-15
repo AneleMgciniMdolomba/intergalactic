@@ -22,7 +22,8 @@ class RomanArabicConverterTest {
 
   @ParameterizedTest(name = "[{index}] - Roman to Arabic")
   @CsvSource(value = {"MMVI;2006", "MCMXLIV;1944", "XXXIX;39",
-      "M;1000", "IX;9", "MCI;1101", "XL;40", "XC;90", "XI;11", "XLII;42", "XL;40"}, delimiter = ';')
+      "M;1000", "IX;9", "MCI;1101", "XL;40",
+      "XC;90", "XI;11", "XLII;42", "XL;40", "IV;4"}, delimiter = ';')
   void testRomanSymbolsConversionRules(String roman, int arabic) {
     var arabicValue = converter.convert(roman);
 

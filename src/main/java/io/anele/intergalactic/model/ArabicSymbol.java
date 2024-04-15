@@ -15,6 +15,9 @@ public class ArabicSymbol {
     return value;
   }
 
+  public void addValue(int value) {
+    this.value += value;
+  }
   public void setValue(int value) {
     this.value = value;
   }
