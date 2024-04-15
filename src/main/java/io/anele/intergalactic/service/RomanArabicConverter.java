@@ -28,7 +28,7 @@ public class RomanArabicConverter {
 
   private void validateInput(List<RomanSymbol> input) throws InvalidRomanSymbolsException {
     Map<Character, Integer> repeats = new HashMap<>();
-    int countForL =1, countForD =1 , countForV = 1;
+    int countForL = 0, countForD = 0, countForV = 0;
 
     if (input == null || input.isEmpty()) {
       throw new InvalidRomanSymbolsException("Cannot convert empty roman numerals");
@@ -75,6 +75,7 @@ public class RomanArabicConverter {
       // Check if current == last element
       if (processIndex + 1 >= romanSymbols.size()) {
         value += current.getValue();
+        processIndex = processIndex + 1;
       } else {
         // Next element
         var next = romanSymbols.get(processIndex + 1);
@@ -102,7 +103,7 @@ public class RomanArabicConverter {
           }
         } else {
           value += current.getValue();
-          processIndex = index + 1;
+          processIndex = processIndex + 1;
 
         }
       }

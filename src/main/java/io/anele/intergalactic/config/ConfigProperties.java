@@ -71,4 +71,9 @@ public class ConfigProperties {
     return this.romanSymbols.stream().filter(roman -> roman.getId() == romanSymbol)
         .findFirst().orElseThrow(RuntimeException::new);
   }
+
+  public GalacticSymbol search(final String symbol) {
+    return this.galacticSymbols.stream().filter(galacticSymbol -> galacticSymbol.getId().equals(symbol))
+        .findFirst().orElseThrow(RuntimeException::new);
+  }
 }
