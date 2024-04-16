@@ -12,7 +12,7 @@ public interface IntergalacticTrader {
   ArabicSymbol trade(List<RomanSymbol> symbol) throws InvalidIntergalacticTradingPromptException;
 
   default ArabicSymbol convertUnitsAndGet(List<RomanSymbol> symbol,
-      ArabicSymbol baseIronArabicSymbol, RomanArabicConverter converter) {
+      ArabicSymbol costPerUnit, RomanArabicConverter converter) {
     isInputValid(symbol);
 
     StringBuilder builder = new StringBuilder();
@@ -21,7 +21,7 @@ public interface IntergalacticTrader {
     }
 
     final var input = builder.toString();
-    ArabicSymbol credits = new ArabicSymbol(baseIronArabicSymbol.getValue());
+    ArabicSymbol credits = new ArabicSymbol(costPerUnit.getValue());
     credits.calculateCredits(converter.convert(input).getValue());
 
     return credits;

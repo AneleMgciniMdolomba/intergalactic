@@ -11,11 +11,12 @@ public class IntergalacticSilverCreditsStrategy implements IntergalacticTrader {
 
   // Calculated from requirements / examples - refer to notes on
   // how to calculate unit cost per commodity
-  private final ArabicSymbol costPerUnit = new ArabicSymbol(17);
+  private final ArabicSymbol costPerUnit;
   private final RomanArabicConverter converter;
 
-  public IntergalacticSilverCreditsStrategy(RomanArabicConverter converter) {
+  public IntergalacticSilverCreditsStrategy(RomanArabicConverter converter, double costPerUnit) {
     this.converter = converter;
+    this.costPerUnit = new ArabicSymbol(costPerUnit);
   }
 
   @Override

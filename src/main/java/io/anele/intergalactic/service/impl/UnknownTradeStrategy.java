@@ -10,6 +10,6 @@ public class UnknownTradeStrategy implements IntergalacticTrader {
 
   @Override
   public ArabicSymbol trade(List<RomanSymbol> symbol) {
-    throw new InvalidIntergalacticTradingPromptException("UnknownTradeStrategy");
+    throw new InvalidIntergalacticTradingPromptException("I have no idea what you are talking about");
   }
 }

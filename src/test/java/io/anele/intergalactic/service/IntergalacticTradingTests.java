@@ -7,12 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import io.anele.intergalactic.config.ConfigProperties;
 import io.anele.intergalactic.exceptions.InvalidIntergalacticTradingPromptException;
 import io.anele.intergalactic.model.ArabicSymbol;
+import io.anele.intergalactic.model.GalacticSymbol;
 import io.anele.intergalactic.model.RomanSymbol;
 import io.anele.intergalactic.service.impl.IntergalacticGoldCreditsStrategy;
 import io.anele.intergalactic.service.impl.IntergalacticIronCreditsStrategy;
 import io.anele.intergalactic.service.impl.IntergalacticSilverCreditsStrategy;
 import io.anele.intergalactic.service.impl.IntergalacticToRomanStrategy;
 import io.anele.intergalactic.service.impl.UnknownTradeStrategy;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -29,13 +31,22 @@ class IntergalacticTradingTests {
   @BeforeAll
   static void setUp() {
     properties = new ConfigProperties();
+    List<GalacticSymbol> symbols = new ArrayList<>(
+        Arrays.asList(
+            new GalacticSymbol("glob", properties.search('I')),
+            new GalacticSymbol("prok", properties.search('V')),
+            new GalacticSymbol("pish", properties.search('X')),
+            new GalacticSymbol("tegj", properties.search('L'))
+        )
+    );
+    properties.setGalacticSymbols(symbols);
     RomanArabicConverter converter = new RomanArabicConverter(properties);
 
     // trading strategies
     tradingLists.put("howMuch", new IntergalacticToRomanStrategy(converter));
-    tradingLists.put("silverCredits", new IntergalacticSilverCreditsStrategy(converter));
-    tradingLists.put("goldCredits", new IntergalacticGoldCreditsStrategy(converter));
-    tradingLists.put("ironCredits", new IntergalacticIronCreditsStrategy(converter));
+    tradingLists.put("silverCredits", new IntergalacticSilverCreditsStrategy(converter, 17));
+    tradingLists.put("goldCredits", new IntergalacticGoldCreditsStrategy(converter, 14450));
+    tradingLists.put("ironCredits", new IntergalacticIronCreditsStrategy(converter, 195.5));
     tradingLists.put("unknownTrading", new UnknownTradeStrategy());
   }
 

@@ -11,17 +11,18 @@ public class IntergalacticGoldCreditsStrategy implements IntergalacticTrader {
 
   // Calculated from requirements / examples - refer to notes on
   // how to calculate unit cost per commodity
-  private final ArabicSymbol baseGoldArabicSymbol = new ArabicSymbol(14450);
+  private final ArabicSymbol costPerUnit;
   private final RomanArabicConverter converter;
 
-  public IntergalacticGoldCreditsStrategy(RomanArabicConverter converter) {
+  public IntergalacticGoldCreditsStrategy(RomanArabicConverter converter, double costPerUnit) {
     this.converter = converter;
+    this.costPerUnit = new ArabicSymbol(costPerUnit);
   }
 
   @Override
   public ArabicSymbol trade(List<RomanSymbol> symbol)
       throws InvalidIntergalacticTradingPromptException {
 
-    return convertUnitsAndGet(symbol, baseGoldArabicSymbol, converter);
+    return convertUnitsAndGet(symbol, costPerUnit, converter);
   }
 }

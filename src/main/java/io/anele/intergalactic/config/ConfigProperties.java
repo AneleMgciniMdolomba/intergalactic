@@ -7,28 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is used to configure some data
- * upfront to help with the program
+ * This class is used to configure some data upfront to help with the program
  */
 public class ConfigProperties {
 
   private final List<RomanSymbol> romanSymbols = new ArrayList<>(7);
-  private final List<GalacticSymbol> galacticSymbols = new ArrayList<>(4);
+  private List<GalacticSymbol> galacticSymbols = new ArrayList<>();
 
   public ConfigProperties() {
     initializeData();
   }
 
-  private void initializeData(){
+  private void initializeData() {
     initRomanSymbols();
-    initIntergalacticUnits();
-  }
-
-  private void initIntergalacticUnits() {
-    this.galacticSymbols.add(new GalacticSymbol("glob", search('I')));
-    this.galacticSymbols.add(new GalacticSymbol("prok", search('V')));
-    this.galacticSymbols.add(new GalacticSymbol("pish", search('X')));
-    this.galacticSymbols.add(new GalacticSymbol("tegj", search('L')));
   }
 
   private void initRomanSymbols() {
@@ -63,6 +54,11 @@ public class ConfigProperties {
     return romanSymbols;
   }
 
+  public void setGalacticSymbols(
+      List<GalacticSymbol> galacticSymbols) {
+    this.galacticSymbols = galacticSymbols;
+  }
+
   public List<GalacticSymbol> getGalacticSymbols() {
     return galacticSymbols;
   }
@@ -73,7 +69,17 @@ public class ConfigProperties {
   }
 
   public GalacticSymbol search(final String symbol) {
-    return this.galacticSymbols.stream().filter(galacticSymbol -> galacticSymbol.getId().equals(symbol))
+    System.out.println(symbol);
+    return this.galacticSymbols.stream()
+        .filter(galacticSymbol -> galacticSymbol.getId().equals(symbol))
         .findFirst().orElseThrow(RuntimeException::new);
+  }
+
+  public void addGalacticSymbol(String galacticSymbol, String romanSymbol) {
+    if (galacticSymbols == null) {
+      galacticSymbols = new ArrayList<>();
+    }
+
+    this.galacticSymbols.add(new GalacticSymbol(galacticSymbol, search(romanSymbol.charAt(0))));
   }
 }
