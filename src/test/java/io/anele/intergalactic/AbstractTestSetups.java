@@ -10,7 +10,7 @@ public abstract class AbstractTestSetups {
 
   public static GalaxyTradingConfigurationProperties properties;
 
-  static void init() {
+  public static void init() {
     properties = new GalaxyTradingConfigurationProperties();
     List<GalacticSymbol> symbols = new ArrayList<>(
         Arrays.asList(

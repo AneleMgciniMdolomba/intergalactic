@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import io.anele.intergalactic.AbstractTestSetups;
 import io.anele.intergalactic.config.GalaxyTradingConfigurationProperties;
 import io.anele.intergalactic.exceptions.InvalidIntergalacticTradingPromptException;
 import io.anele.intergalactic.model.ArabicSymbol;
@@ -23,23 +24,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class IntergalacticTradingTests {
+class IntergalacticTradingTests extends AbstractTestSetups {
 
-  private static GalaxyTradingConfigurationProperties properties;
+//  private static GalaxyTradingConfigurationProperties properties;
   private static final Map<String, IntergalacticTrader> tradingLists = new HashMap<>();
 
   @BeforeAll
   static void setUp() {
-    properties = new GalaxyTradingConfigurationProperties();
-    List<GalacticSymbol> symbols = new ArrayList<>(
-        Arrays.asList(
-            new GalacticSymbol("glob", properties.search('I')),
-            new GalacticSymbol("prok", properties.search('V')),
-            new GalacticSymbol("pish", properties.search('X')),
-            new GalacticSymbol("tegj", properties.search('L'))
-        )
-    );
-    properties.setGalacticSymbols(symbols);
+    init();
     RomanArabicConverter converter = new RomanArabicConverter(properties);
 
     // trading strategies
