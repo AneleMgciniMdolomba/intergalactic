@@ -71,7 +71,6 @@ public class GalaxyTradingConfigurationProperties {
   }
 
   public GalacticSymbol search(final String symbol) {
-    System.out.println(symbol);
     return this.galacticSymbols.stream()
         .filter(galacticSymbol -> galacticSymbol.getId().equals(symbol))
         .findFirst().orElseThrow(RuntimeException::new);

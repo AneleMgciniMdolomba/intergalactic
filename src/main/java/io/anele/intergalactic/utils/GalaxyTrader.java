@@ -103,7 +103,7 @@ public class GalaxyTrader {
 
       TradingFileWriter.write(output);
     } catch (InvalidIntergalacticTradingPromptException exception) {
-      TradingFileWriter.write(exception.getMessage());
+      TradingFileWriter.write(exception.getMessage() + "\n");
     }
   }
 
