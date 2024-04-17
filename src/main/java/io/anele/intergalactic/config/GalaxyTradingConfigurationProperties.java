@@ -7,14 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is used to configure some data upfront to help with the program
+ * This class is used to configure intergalactic trading units and symbols
+ * Initializes @{@link RomanSymbol} and configure @{@link GalacticSymbol}
+ * at run time.
  */
-public class ConfigProperties {
+public class GalaxyTradingConfigurationProperties {
 
   private final List<RomanSymbol> romanSymbols = new ArrayList<>(7);
   private List<GalacticSymbol> galacticSymbols = new ArrayList<>();
 
-  public ConfigProperties() {
+  public GalaxyTradingConfigurationProperties() {
     initializeData();
   }
 
@@ -25,25 +27,25 @@ public class ConfigProperties {
   private void initRomanSymbols() {
     this.romanSymbols.add(RomanSymbol.RomanSymbolBuilder.builder()
         .romanIdentifier('I').value(1).maxSequentialAllowed(3)
-        .nextSequentialId('V').allowedSubtractions(new char[]{'V', 'X'}).build());
+        .allowedSubtractions(new char[]{'V', 'X'}).build());
 
     this.romanSymbols.add(RomanSymbol.RomanSymbolBuilder.builder()
-        .romanIdentifier('V').value(5).nextSequentialId('X').build());
+        .romanIdentifier('V').value(5).build());
 
     this.romanSymbols.add(RomanSymbol.RomanSymbolBuilder.builder()
         .romanIdentifier('X').value(10).maxSequentialAllowed(3)
-        .nextSequentialId('L').allowedSubtractions(new char[]{'L', 'C'}).build());
+        .allowedSubtractions(new char[]{'L', 'C'}).build());
 
     this.romanSymbols.add(RomanSymbol.RomanSymbolBuilder.builder()
-        .romanIdentifier('L').value(50).nextSequentialId('C').build());
+        .romanIdentifier('L').value(50).build());
 
     this.romanSymbols.add(RomanSymbol.RomanSymbolBuilder.builder()
         .romanIdentifier('C').value(100).maxSequentialAllowed(3)
-        .nextSequentialId('D').allowedSubtractions(new char[]{'D', 'M'}).build());
+        .allowedSubtractions(new char[]{'D', 'M'}).build());
 
     this.romanSymbols.add(RomanSymbolBuilder.builder()
         .romanIdentifier('D').value(500)
-        .nextSequentialId('M').build());
+        .build());
 
     this.romanSymbols.add(RomanSymbolBuilder.builder()
         .romanIdentifier('M').value(1000).maxSequentialAllowed(3)

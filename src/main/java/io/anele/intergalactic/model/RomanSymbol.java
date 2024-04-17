@@ -2,13 +2,15 @@ package io.anele.intergalactic.model;
 
 import java.util.Arrays;
 
+/**
+ * Represents Roman Symbols
+ */
 public class RomanSymbol {
 
   private char id;
   private int value;
   private int maxSequentialAllowed;
   private char[] allowedSubtractions;
-  private char next;
 
   private RomanSymbol() {
   }
@@ -29,10 +31,6 @@ public class RomanSymbol {
     return allowedSubtractions;
   }
 
-  public char getNext() {
-    return next;
-  }
-
   @Override
   public String toString() {
     return "RomanSymbol{" +
@@ -40,7 +38,6 @@ public class RomanSymbol {
         ", value=" + value +
         ", maxSequentialAllowed=" + maxSequentialAllowed +
         ", allowedSubtractions=" + Arrays.toString(allowedSubtractions) +
-        ", next=" + next +
         '}';
   }
 
@@ -50,7 +47,6 @@ public class RomanSymbol {
     private int value;
     private int maxSequentialAllowed;
     private char[] allowedSubtractions;
-    private char next;
 
     private RomanSymbolBuilder() {
     }
@@ -79,18 +75,12 @@ public class RomanSymbol {
       return this;
     }
 
-    public RomanSymbolBuilder nextSequentialId(char next) {
-      this.next = next;
-      return this;
-    }
-
     public RomanSymbol build() {
       RomanSymbol romanSymbol = new RomanSymbol();
       romanSymbol.id = this.id;
       romanSymbol.value = this.value;
       romanSymbol.maxSequentialAllowed = this.maxSequentialAllowed;
       romanSymbol.allowedSubtractions = this.allowedSubtractions;
-      romanSymbol.next = this.next;
 
       return romanSymbol;
     }

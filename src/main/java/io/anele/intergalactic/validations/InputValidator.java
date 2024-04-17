@@ -5,7 +5,11 @@ import io.anele.intergalactic.exceptions.InvalidRomanSymbolsException;
 import io.anele.intergalactic.model.RomanSymbol;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class InputValidator {
 
@@ -29,21 +33,16 @@ public class InputValidator {
       throws InvalidRomanSymbolsException {
     basicInputValidation(symbols);
 
-    for (int index = 0; index < symbols.size(); index++) {
-      var symbol = symbols.get(index);
+    Set<Character> repeatedSymbols = new HashSet<>();
 
-      if (NO_REPEATS_ALLOWED.contains(symbol.getId())) {
-        var occurences = 0;
+    for (RomanSymbol symbol : symbols) {
+      char id = symbol.getId();
 
-        for (int innerIndex = index; innerIndex < symbols.size(); innerIndex++) {
-          var romanSymbol = symbols.get(innerIndex);
-          if (symbol.getId() == romanSymbol.getId()) {
-            occurences++;
-            if (occurences > 1) {
-              throw new InvalidRomanSymbolsException("D,L or V can never repeat");
-            }
-          }
+      if (NO_REPEATS_ALLOWED.contains(id)) {
+        if (repeatedSymbols.contains(id)) {
+          throw new InvalidRomanSymbolsException("D, L, or V can never repeat.");
         }
+        repeatedSymbols.add(id);
       }
     }
   }
@@ -51,25 +50,31 @@ public class InputValidator {
   public static void validateAllowedMaxRepeats(List<RomanSymbol> symbols) {
     basicInputValidation(symbols);
 
-    for (int index = 0; index < symbols.size(); index++) {
-      var symbol = symbols.get(index);
+    Map<Character, Integer> symbolCounts = new HashMap<>();
+
+    RomanSymbol previous = symbols.get(0);
+    for (RomanSymbol symbol : symbols) {
+      // reset count for symbolCounts on symbols change
+      if(symbol.getId() != previous.getId()) {
+        symbolCounts.put(previous.getId(), 0);
+
+        previous = symbol;
+      }
 
       if (MAX_ALLOWED_OCCURRENCES.contains(symbol.getId())) {
-        var occurences = 0;
+        char id = symbol.getId();
+        int maxSequentialAllowed = symbol.getMaxSequentialAllowed();
+        int occurrences = symbolCounts.getOrDefault(id, 0);
 
-        for (int innerIndex = index; innerIndex < symbols.size(); innerIndex++) {
-          var romanSymbol = symbols.get(innerIndex);
+        // Increment count
+        symbolCounts.put(id, occurrences + 1);
 
-          if (symbol.getId() == romanSymbol.getId()) {
-            occurences++;
-
-            if (occurences > symbol.getMaxSequentialAllowed()) {
-              throw new InvalidRomanSymbolsException("Max Sequential Allowed exceeded.");
-            }
-          } else {
-            break;
-          }
+        if (symbolCounts.get(id) > maxSequentialAllowed) {
+          throw new InvalidRomanSymbolsException("Max Sequential Allowed exceeded.");
         }
+      } else {
+        // Reset count for symbols not in MAX_ALLOWED_OCCURRENCES
+        symbolCounts.put(symbol.getId(), 0);
       }
     }
   }

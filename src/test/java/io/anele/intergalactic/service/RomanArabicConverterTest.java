@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import io.anele.intergalactic.config.ConfigProperties;
+import io.anele.intergalactic.config.GalaxyTradingConfigurationProperties;
 import io.anele.intergalactic.exceptions.InvalidRomanSymbolsException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,7 +17,7 @@ class RomanArabicConverterTest {
 
   @BeforeAll
   static void setUp() {
-    converter = new RomanArabicConverter(new ConfigProperties());
+    converter = new RomanArabicConverter(new GalaxyTradingConfigurationProperties());
   }
 
   @ParameterizedTest(name = "[{index}] - Roman to Arabic")

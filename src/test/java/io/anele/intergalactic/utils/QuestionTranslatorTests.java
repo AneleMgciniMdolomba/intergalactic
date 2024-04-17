@@ -58,7 +58,7 @@ class QuestionTranslatorTests extends AbstractTestSetups {
     System.out.println(value);
     System.out.println(output);
     List<String> lines = List.of(input.split(" "));
-    assertEquals(output + "\n", QuestionTranslator.toAnswer(unit, lines, value));
+    assertEquals(output + "\n", QuestionTranslator.toOutputLineAnswer(unit, lines, value));
   }
 
   @ParameterizedTest(name = "[{index}] - Test output writer with Credits")
@@ -70,6 +70,6 @@ class QuestionTranslatorTests extends AbstractTestSetups {
     System.out.println(value);
     System.out.println(output);
     List<String> lines = List.of(input.split(" "));
-    assertEquals(output + "\n", QuestionTranslator.toAnswer("Credits", lines, value));
+    assertEquals(output + "\n", QuestionTranslator.toOutputLineAnswer("Credits", lines, value));
   }
 }

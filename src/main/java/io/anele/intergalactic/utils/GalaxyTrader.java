@@ -1,10 +1,10 @@
 package io.anele.intergalactic.utils;
 
-import static io.anele.intergalactic.utils.QuestionTranslator.INTERGALACTIC_STRATEGY;
-import static io.anele.intergalactic.utils.QuestionTranslator.TRADING_SUFFIX;
-import static io.anele.intergalactic.utils.QuestionTranslator.UNKNOWN_TRADING_STRATEGY;
+import static io.anele.intergalactic.utils.StaticUtilFields.INTERGALACTIC_STRATEGY;
+import static io.anele.intergalactic.utils.StaticUtilFields.TRADING_SUFFIX;
+import static io.anele.intergalactic.utils.StaticUtilFields.UNKNOWN_TRADING_STRATEGY;
 
-import io.anele.intergalactic.config.ConfigProperties;
+import io.anele.intergalactic.config.GalaxyTradingConfigurationProperties;
 import io.anele.intergalactic.exceptions.InvalidIntergalacticTradingPromptException;
 import io.anele.intergalactic.model.ArabicSymbol;
 import io.anele.intergalactic.model.GalacticSymbol;
@@ -27,7 +27,7 @@ import java.util.Scanner;
 
 public class GalaxyTrader {
 
-  private static final ConfigProperties configProperties = new ConfigProperties();
+  private static final GalaxyTradingConfigurationProperties configProperties = new GalaxyTradingConfigurationProperties();
   private static final RomanArabicConverter converter = new RomanArabicConverter(configProperties);
   private static final Map<String, IntergalacticTrader> tradingStrategies = new HashMap<>();
   public static final String GALACTIC_CREDITS = "Credits";
@@ -97,7 +97,7 @@ public class GalaxyTrader {
     try {
       ArabicSymbol symbol = trader.trade(currency);
 
-      String output = QuestionTranslator.toAnswer(
+      String output = QuestionTranslator.toOutputLineAnswer(
           isCredits(lines) ? GALACTIC_CREDITS : "is",
           lines, symbol.getValue());
 
@@ -105,8 +105,6 @@ public class GalaxyTrader {
     } catch (InvalidIntergalacticTradingPromptException exception) {
       TradingFileWriter.write(exception.getMessage());
     }
-
-
   }
 
   /**

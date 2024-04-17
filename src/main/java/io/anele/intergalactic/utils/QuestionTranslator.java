@@ -1,19 +1,22 @@
 package io.anele.intergalactic.utils;
 
+import static io.anele.intergalactic.utils.StaticUtilFields.COMMODITY_CREDITS_INDEX_CHECKER;
+import static io.anele.intergalactic.utils.StaticUtilFields.HOW_MANY_INDEX_CHECKER;
+import static io.anele.intergalactic.utils.StaticUtilFields.HOW_MUCH_INDEX_CHECKER;
+import static io.anele.intergalactic.utils.StaticUtilFields.INTERGALACTIC_STRATEGY;
+import static io.anele.intergalactic.utils.StaticUtilFields.IS_INDEX_CHECKER;
+import static io.anele.intergalactic.utils.StaticUtilFields.TRADING_SUFFIX;
+import static io.anele.intergalactic.utils.StaticUtilFields.UNKNOWN_TRADING_STRATEGY;
+
 import io.anele.intergalactic.model.GalacticSymbol;
 import io.anele.intergalactic.model.RomanSymbol;
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionTranslator {
-
   private QuestionTranslator() {
 
   }
-
-  protected static final String TRADING_SUFFIX = "Strategy";
-  protected static final String INTERGALACTIC_STRATEGY = "howMuch" + TRADING_SUFFIX;
-  protected static final String UNKNOWN_TRADING_STRATEGY = "unknown" + TRADING_SUFFIX;
 
   /**
    * Determines which strategy should be used to perform trading
@@ -23,14 +26,14 @@ public class QuestionTranslator {
    */
   static String getTradingStrategy(List<String> question) {
     // How Much - strategy
-    if ("much".equalsIgnoreCase(question.get(1)) &&
-        "is".equalsIgnoreCase(question.get(2))) {
+    if (HOW_MUCH_INDEX_CHECKER.equalsIgnoreCase(question.get(1)) &&
+        IS_INDEX_CHECKER.equalsIgnoreCase(question.get(2))) {
       return INTERGALACTIC_STRATEGY;
     }
 
     // How Many - Credits Strategy
-    if ("many".equalsIgnoreCase(question.get(1)) &&
-        "Credits".equalsIgnoreCase(question.get(2))) {
+    if (HOW_MANY_INDEX_CHECKER.equalsIgnoreCase(question.get(1)) &&
+        COMMODITY_CREDITS_INDEX_CHECKER.equalsIgnoreCase(question.get(2))) {
 
       switch (question.get(question.size() - 2).toLowerCase()) {
         case "silver" -> {
@@ -74,10 +77,10 @@ public class QuestionTranslator {
     return symbols;
   }
 
-  public static String toAnswer(String unit, List<String> lines, double value) {
+  public static String toOutputLineAnswer(String unit, List<String> lines, double value) {
     StringBuilder builder = new StringBuilder();
 
-    for (int index = lines.lastIndexOf("is") + 1; index < lines.size() - 1; index++) {
+    for (int index = lines.lastIndexOf(IS_INDEX_CHECKER) + 1; index < lines.size() - 1; index++) {
       builder.append(lines.get(index));
       builder.append(" ");
     }
@@ -85,7 +88,7 @@ public class QuestionTranslator {
 
     builder.append((int) value);
 
-    if ("Credits".equalsIgnoreCase(unit)) {
+    if (COMMODITY_CREDITS_INDEX_CHECKER.equalsIgnoreCase(unit)) {
       builder.append(" ");
       builder.append(unit);
     }

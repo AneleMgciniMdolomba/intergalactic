@@ -1,5 +1,9 @@
 package io.anele.intergalactic.model;
 
+/**
+ * Represents intergalactic Symbol. Each Galactic Symbol has ONLY ONE @{@link RomanSymbol}
+ * used during trading.
+ */
 public class GalacticSymbol {
 
   private String id;

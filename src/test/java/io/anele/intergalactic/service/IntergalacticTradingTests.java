@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import io.anele.intergalactic.config.ConfigProperties;
+import io.anele.intergalactic.config.GalaxyTradingConfigurationProperties;
 import io.anele.intergalactic.exceptions.InvalidIntergalacticTradingPromptException;
 import io.anele.intergalactic.model.ArabicSymbol;
 import io.anele.intergalactic.model.GalacticSymbol;
@@ -25,12 +25,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 class IntergalacticTradingTests {
 
-  private static ConfigProperties properties;
+  private static GalaxyTradingConfigurationProperties properties;
   private static final Map<String, IntergalacticTrader> tradingLists = new HashMap<>();
 
   @BeforeAll
   static void setUp() {
-    properties = new ConfigProperties();
+    properties = new GalaxyTradingConfigurationProperties();
     List<GalacticSymbol> symbols = new ArrayList<>(
         Arrays.asList(
             new GalacticSymbol("glob", properties.search('I')),

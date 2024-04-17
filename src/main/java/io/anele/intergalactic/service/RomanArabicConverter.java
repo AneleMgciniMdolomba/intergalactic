@@ -3,7 +3,7 @@ package io.anele.intergalactic.service;
 import static io.anele.intergalactic.validations.InputValidator.validateAllowedMaxRepeats;
 import static io.anele.intergalactic.validations.InputValidator.validateNonAllowedRepeat;
 
-import io.anele.intergalactic.config.ConfigProperties;
+import io.anele.intergalactic.config.GalaxyTradingConfigurationProperties;
 import io.anele.intergalactic.exceptions.InvalidRomanSymbolsException;
 import io.anele.intergalactic.model.ArabicSymbol;
 import io.anele.intergalactic.model.RomanSymbol;
@@ -12,9 +12,9 @@ import java.util.List;
 
 public class RomanArabicConverter {
 
-  private final ConfigProperties configProperties;
+  private final GalaxyTradingConfigurationProperties configProperties;
 
-  public RomanArabicConverter(ConfigProperties configProperties) {
+  public RomanArabicConverter(GalaxyTradingConfigurationProperties configProperties) {
     this.configProperties = configProperties;
   }
 
@@ -27,7 +27,6 @@ public class RomanArabicConverter {
 
     return toArabic(input);
   }
-
 
   private ArabicSymbol toArabic(List<RomanSymbol> romanSymbols) {
     int value = 0;

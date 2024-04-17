@@ -1,6 +1,6 @@
 package io.anele.intergalactic;
 
-import io.anele.intergalactic.config.ConfigProperties;
+import io.anele.intergalactic.config.GalaxyTradingConfigurationProperties;
 import io.anele.intergalactic.model.GalacticSymbol;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,10 +8,10 @@ import java.util.List;
 
 public abstract class AbstractTestSetups {
 
-  public static ConfigProperties properties;
+  public static GalaxyTradingConfigurationProperties properties;
 
   static void init() {
-    properties = new ConfigProperties();
+    properties = new GalaxyTradingConfigurationProperties();
     List<GalacticSymbol> symbols = new ArrayList<>(
         Arrays.asList(
             new GalacticSymbol("glob", properties.search('I')),

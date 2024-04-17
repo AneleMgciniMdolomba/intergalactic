@@ -1,5 +1,8 @@
 package io.anele.intergalactic.model;
 
+/**
+ * Wrapper class for intergalactic trading
+ */
 public class ArabicSymbol {
 
   private double value;
