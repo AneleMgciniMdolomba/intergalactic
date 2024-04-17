@@ -1,5 +1,6 @@
 package io.anele.intergalactic.config;
 
+import io.anele.intergalactic.exceptions.RomanSymbolNotFoundException;
 import io.anele.intergalactic.model.GalacticSymbol;
 import io.anele.intergalactic.model.RomanSymbol;
 import io.anele.intergalactic.model.RomanSymbol.RomanSymbolBuilder;
@@ -7,9 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is used to configure intergalactic trading units and symbols
- * Initializes @{@link RomanSymbol} and configure @{@link GalacticSymbol}
- * at run time.
+ * This class is used to configure intergalactic trading units and symbols Initializes
+ * @{@link RomanSymbol} and configure @{@link GalacticSymbol} at run time.
  */
 public class GalaxyTradingConfigurationProperties {
 
@@ -67,7 +67,8 @@ public class GalaxyTradingConfigurationProperties {
 
   public RomanSymbol search(final char romanSymbol) {
     return this.romanSymbols.stream().filter(roman -> roman.getId() == romanSymbol)
-        .findFirst().orElseThrow(RuntimeException::new);
+        .findFirst().orElseThrow(
+            () -> new RomanSymbolNotFoundException("Roman Symbol " + romanSymbol + " not found."));
   }
 
   public GalacticSymbol search(final String symbol) {
